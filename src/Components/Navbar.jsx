@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-const Navbar = ({ isAuthenticated = true }) => {
+import { AuthContext } from "../provider/AuthProvider";
+import toast from "react-hot-toast";
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const {user,logout} = useContext(AuthContext);
 
+  const handleLogout = () =>{
+    logout()
+    .then(() => {
+        toast.success("Logged out successfully");
+      })
+      .catch((error) => {
+        toast.error(error.message || "Logout failed");
+      });
+  }
   return (
    <header className="bg-[#082026]/50 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
@@ -66,7 +78,7 @@ const Navbar = ({ isAuthenticated = true }) => {
 
           {/* Auth Buttons / Profile */}
           <div className="flex items-center gap-4">
-            {isAuthenticated ? (
+            {user ? (
               <div className="relative">
                 <button
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
@@ -104,9 +116,12 @@ const Navbar = ({ isAuthenticated = true }) => {
                     </Link>
                     <div className="border-t border-gray-200 my-1"></div>
                     <Link
-                      to="/logout"
+                      to="/"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white"
-                      onClick={() => setIsProfileOpen(false)}
+                      onClick={() => {
+                        handleLogout();
+                        setIsProfileOpen(false);
+                      }}
                     >
                       Logout
                     </Link>
