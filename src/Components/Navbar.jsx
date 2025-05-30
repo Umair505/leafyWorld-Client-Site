@@ -1,24 +1,25 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Changed from "react-router"
 import logo from "../assets/logo.png";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const {user,logout} = useContext(AuthContext);
-
-  const handleLogout = () =>{
+  const { user, logout } = useContext(AuthContext);
+  const handleLogout = () => {
     logout()
-    .then(() => {
+      .then(() => {
         toast.success("Logged out successfully");
       })
       .catch((error) => {
         toast.error(error.message || "Logout failed");
       });
-  }
+  };
+
   return (
-   <header className="bg-[#082026]/50 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+    <header className="bg-[#082026]/50 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -28,14 +29,11 @@ const Navbar = () => {
               className="flex items-center gap-2 hover:opacity-90 transition-opacity"
               aria-label="LeafyWorld Home"
             >
-              {/* Custom Logo Image */}
               <img
                 src={logo}
                 alt="LeafyWorld Logo"
-                className="h-9 w-auto" // Adjust height as needed
+                className="h-9 w-auto"
               />
-
-              {/* Text - Hidden on mobile, visible from sm breakpoint */}
               <span className="text-xl font-bold text-[#F5F0E6] hidden sm:block tracking-tight">
                 LeafyWorld
               </span>
@@ -44,34 +42,19 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link
-              to="/about"
-              className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors"
-            >
+            <Link to="/about" className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors">
               About
             </Link>
-            <Link
-              to="/community"
-              className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors"
-            >
+            <Link to="/community" className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors">
               Community
             </Link>
-            <Link
-              to="/events"
-              className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors"
-            >
+            <Link to="/events" className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors">
               Events
             </Link>
-            <Link
-              to="/blog"
-              className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors"
-            >
+            <Link to="/blog" className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors">
               Blog
             </Link>
-            <Link
-              to="/resources"
-              className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors"
-            >
+            <Link to="/resources" className="text-[#F5F0E6] hover:text-[#90CE48] transition-colors">
               Resources
             </Link>
           </nav>
@@ -85,14 +68,21 @@ const Navbar = () => {
                   className="overflow-hidden rounded-full border-2 border-[#90CE48] focus:outline-none focus:ring-2 focus:ring-[#D4CF1D]"
                 >
                   <img
-                    src="https://i.ibb.co/9320CRdW/471683009-2648978342159172-7544177298773022951-n.jpg"
+                    src={user?.photoURL || "https://via.placeholder.com/150"}
                     alt="Profile"
-                    className="h-10 w-10 object-cover"
+                    className="h-10 w-10 object-cover hover:opacity-90 transition-opacity"
                   />
                 </button>
 
                 {isProfileOpen && (
                   <div className="absolute right-0 mt-2 w-48 rounded-md bg-white shadow-lg py-1 z-50">
+                   <Link
+                      
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#90CE48] hover:text-white"
+                      onClick={() => setIsProfileOpen(false)}
+                    >
+                      {user?.displayName}
+                    </Link>
                     <Link
                       to="/profile"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#90CE48] hover:text-white"
@@ -107,24 +97,17 @@ const Navbar = () => {
                     >
                       My Garden
                     </Link>
-                    <Link
-                      to="/settings"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#90CE48] hover:text-white"
-                      onClick={() => setIsProfileOpen(false)}
-                    >
-                      Settings
-                    </Link>
+                    
                     <div className="border-t border-gray-200 my-1"></div>
-                    <Link
-                      to="/"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white"
+                    <button
                       onClick={() => {
                         handleLogout();
                         setIsProfileOpen(false);
                       }}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white"
                     >
                       Logout
-                    </Link>
+                    </button>
                   </div>
                 )}
               </div>
@@ -158,19 +141,9 @@ const Navbar = () => {
                 stroke="currentColor"
               >
                 {isMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
@@ -217,7 +190,7 @@ const Navbar = () => {
                 Resources
               </Link>
             </div>
-            {!isAuthenticated && (
+            {!user && (
               <div className="mt-4 space-y-2 px-2">
                 <Link
                   to="/login"

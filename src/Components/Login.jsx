@@ -14,13 +14,24 @@ const Login = () => {
         const password = form.password.value;
         login(email,password)
         .then(() =>{
-            toast.success('Login successful');
+            toast.success('Logged in successfully!');
             navigate(`${location.state? location.state :"/"}`);
         })
         .catch((error) => {
         toast.error(error.message || 'Login failed');
       });
     }
+
+    const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then(() => {
+        toast.success('Google sign-in successful');
+        navigate(`${location.state? location.state :"/"}`);
+      })
+      .catch((error) => {
+        toast.error(error.message || 'Google sign-in failed');
+      });
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#082026] px-4 py-12">
       <div className="w-full max-w-md">
@@ -120,6 +131,7 @@ const Login = () => {
           <div className="mt-6 flex flex-col gap-3">
             {/* Google */}
             <button
+                onClick={handleGoogleSignIn}
               type="button"
               className="w-full inline-flex justify-center py-3 px-4 border border-[#90CE48]/30 rounded-lg shadow-sm bg-[#082026]/50 text-sm font-medium text-[#F5F0E6] hover:bg-[#90CE48]/10 transition"
             >
