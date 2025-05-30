@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-const Navbar = ({ isAuthenticated = false }) => {
+const Navbar = ({ isAuthenticated = true }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
@@ -73,7 +73,7 @@ const Navbar = ({ isAuthenticated = false }) => {
                   className="overflow-hidden rounded-full border-2 border-[#90CE48] focus:outline-none focus:ring-2 focus:ring-[#D4CF1D]"
                 >
                   <img
-                    src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src="https://i.ibb.co/9320CRdW/471683009-2648978342159172-7544177298773022951-n.jpg"
                     alt="Profile"
                     className="h-10 w-10 object-cover"
                   />

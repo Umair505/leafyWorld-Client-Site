@@ -6,7 +6,6 @@ import Slider from "../Components/Slider";
 const Home = () => {
   return (
     <div className="bg-[#082026]">
-      <Navbar></Navbar>
       <Hero></Hero>
       <Slider/>
     </div>
