@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <div className="relative overflow-hidden">
-      <section className="bg-[#082026] lg:min-h-screen ">
+      <section className=" lg:min-h-screen ">
        <div className="relative mx-auto w-full max-w-screen-xl px-4 sm:px-6 py-12 md:grid md:grid-cols-2 md:items-center md:gap-12 lg:px-8">
           
           {/* Background image for small devices */}

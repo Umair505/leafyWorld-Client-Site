@@ -6,7 +6,7 @@ const Navbar = ({ isAuthenticated = false }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
-    <header className="bg-[#082026] sticky top-0 z-50 shadow-md">
+   <header className="bg-[#082026]/50 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
