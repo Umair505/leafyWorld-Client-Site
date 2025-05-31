@@ -5,13 +5,13 @@ import errorImg from "../assets/error.jpeg";
 const ErrorPage = () => {
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center text-center px-4 relative overflow-hidden"
+      className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center text-center px-4 py-10 sm:py-20 relative overflow-hidden"
       style={{
         backgroundImage: `url(${errorImg})`,
         backgroundColor: "#082026",
       }}
     >
-      {/* Animated floating leaves */}
+      {/* Floating Leaves Animation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(12)].map((_, i) => (
           <div
@@ -40,33 +40,18 @@ const ErrorPage = () => {
         ))}
       </div>
 
-      {/* Center Content */}
-      <div className="max-w-xl z-10 px-4 sm:px-6">
-        <div className="mb-6">
-          <svg
-            className="w-20 h-20 sm:w-24 sm:h-24 mx-auto text-[#F5F0E6]"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </div>
-
-        <h1 className="text-5xl sm:text-6xl font-bold text-[#F5F0E6] mb-4">404</h1>
-        <h2 className="text-xl sm:text-2xl font-semibold text-[#F5F0E6] mb-3">
-          Oops! The page has gone on a garden adventure!
+      {/* Main Content */}
+      <div className="z-10 max-w-2xl px-4 sm:px-6">
+        <h1 className="text-6xl sm:text-7xl font-extrabold text-white mb-3 drop-shadow-lg">404</h1>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-[#F0F4E6] mb-4">
+          Oops! The page went on a garden adventure.
         </h2>
-        <p className="text-[#F5F0E6]/90 leading-relaxed mb-6 text-base sm:text-lg">
-          It seems our green friends have hidden this page among the leaves. While we search for it
-          with our gardening tools, how about you enjoy some fresh air back at our homepage?
+        <p className="text-base sm:text-lg text-[#F5F0E6]/90 leading-relaxed mb-6">
+          It seems our green friends have hidden this page among the leaves. While we search for it,
+          how about you enjoy some fresh air back at our homepage?
         </p>
 
+        {/* Down Arrow Animation */}
         <div className="mb-6">
           <svg
             className="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-[#90CE48] animate-bounce"
@@ -83,9 +68,10 @@ const ErrorPage = () => {
           </svg>
         </div>
 
+        {/* Button to Go Back */}
         <Link
           to="/"
-          className="inline-flex items-center bg-[#90CE48] hover:bg-[#D4CF1D] text-[#082026] font-semibold px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[#90CE48]/30"
+          className="inline-flex items-center bg-[#90CE48] hover:bg-[#c7ea46] text-[#082026] font-medium px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-[#90CE48]/30"
         >
           Take me back to the garden
           <svg
@@ -104,14 +90,13 @@ const ErrorPage = () => {
         </Link>
       </div>
 
-     
-
       {/* Animation CSS */}
       <style jsx>{`
         .leaf-animation {
           animation: float linear infinite;
           transform-origin: 50% 50%;
         }
+
         @keyframes float {
           0% {
             transform: translateY(0) rotate(0deg) scale(1);

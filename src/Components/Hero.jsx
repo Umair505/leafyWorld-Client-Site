@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import heroImg from "../assets/hero.png";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Hero = () => {
+  const {user} = useContext(AuthContext);
   return (
     <div className="relative overflow-hidden">
       <section className=" lg:min-h-screen ">
@@ -30,7 +32,8 @@ const Hero = () => {
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4">
-              <Link
+              {
+                user?"":<Link
                 className="inline-flex items-center justify-center rounded-full border border-[#90CE48] bg-[#90CE48] px-6 py-3 font-medium text-[#082026] shadow-sm transition-all hover:bg-[#7CB53B] hover:border-[#7CB53B] hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#90CE48] focus:ring-offset-2 focus:ring-offset-[#082026]"
                 to="/register"
               >
@@ -39,6 +42,7 @@ const Hero = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </Link>
+              }
 
               <Link
                 className="inline-flex items-center justify-center rounded-full border border-[#D4CF1D] px-6 py-3 font-medium text-[#D4CF1D] shadow-sm transition-all hover:bg-[#082026]/50 hover:text-[#F5F0E6] hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#D4CF1D] focus:ring-offset-2 focus:ring-offset-[#082026]"
