@@ -5,6 +5,7 @@ import ErrorPage from "../pages/ErrorPage";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
 import ForgotPassword from "./ForgotPassword";
+import ExploreGardeners from "./ExploreGardeners";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/forgot-password',
         element: <ForgotPassword />,
+      },
+      {
+        path: '/gardener',
+        element: <ExploreGardeners/>,
       },
       
     ],

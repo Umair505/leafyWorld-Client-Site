@@ -99,12 +99,12 @@ const Navbar = () => {
 
                 {isProfileOpen && (
                   <div className="absolute right-0 mt-2 w-48 rounded-md bg-white shadow-lg py-1 z-50">
-                    <Link
+                    <div
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#90CE48] hover:text-white"
                       onClick={() => setIsProfileOpen(false)}
                     >
                       {user?.displayName}
-                    </Link>
+                    </div>
                     <NavLink
                       to="/profile"
                       className={({ isActive }) => 
