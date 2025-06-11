@@ -6,6 +6,9 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
 import ForgotPassword from "./ForgotPassword";
 import ExploreGardeners from "./ExploreGardeners";
+import ShareGardenTips from "./ShareGardenTips";
+import BrowseTips from "../pages/BrowseTips";
+import TipDetails from "../pages/TipDetails";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +35,20 @@ const router = createBrowserRouter([
       {
         path: '/gardener',
         element: <ExploreGardeners/>,
+      },
+      {
+        path: '/garden-tips',
+        element: <ShareGardenTips/>,
+      },
+      {
+
+        path: '/tips',
+        element: <BrowseTips/>,
+      },
+      {
+
+        path: '/tips/:id',
+        element: <TipDetails/>,
       },
       
     ],

@@ -63,7 +63,7 @@ const Navbar = () => {
             <NavLink to="/tips" className={navLinkStyle}>
               Browse Tips
             </NavLink>
-            <NavLink to="/garden-tip" className={navLinkStyle}>
+            <NavLink to="/garden-tips" className={navLinkStyle}>
               Share a Garden Tip
             </NavLink>
             <NavLink to="/my-tips" className={navLinkStyle}>
@@ -236,7 +236,7 @@ const Navbar = () => {
                 Browse Tips
               </NavLink>
               <NavLink
-                to="/garden-tip"
+                to="/garden-tips"
                 className={({ isActive }) =>
                   `block rounded-md px-3 py-2 text-base font-medium ${
                     isActive 
