@@ -117,7 +117,7 @@ const Navbar = () => {
                       My Profile
                     </NavLink>
                     <NavLink
-                      to="/my-garden"
+                      to="/my-tips"
                       className={({ isActive }) => 
                         `block px-4 py-2 text-sm hover:bg-[#90CE48] hover:text-white ${
                           isActive ? "bg-[#90CE48] text-white" : "text-gray-700"
@@ -125,7 +125,7 @@ const Navbar = () => {
                       }
                       onClick={() => setIsProfileOpen(false)}
                     >
-                      My Garden
+                      My Tips
                     </NavLink>
                     
                     <div className="border-t border-gray-200 my-1"></div>

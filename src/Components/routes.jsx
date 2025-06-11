@@ -9,6 +9,7 @@ import ExploreGardeners from "./ExploreGardeners";
 import ShareGardenTips from "./ShareGardenTips";
 import BrowseTips from "../pages/BrowseTips";
 import TipDetails from "../pages/TipDetails";
+import MyTips from "../pages/MyTips";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
 
         path: '/tips/:id',
         element: <TipDetails/>,
+      },
+      {
+
+        path: '/my-tips',
+        element: <MyTips/>,
       },
       
     ],

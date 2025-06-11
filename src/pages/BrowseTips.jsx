@@ -8,6 +8,7 @@ const BrowseTips = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('All');
   const navigate = useNavigate();
 
   const categories = [
@@ -21,7 +22,14 @@ const BrowseTips = () => {
     'Seasonal Planting',
     'Soil Health'
   ];
-  console.log(tips)
+
+  const difficultyLevels = [
+    'All',
+    'Easy',
+    'Medium',
+    'Hard'
+  ];
+
   useEffect(() => {
     const fetchTips = async () => {
       try {
@@ -45,8 +53,18 @@ const BrowseTips = () => {
     const matchesSearch = tip.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          tip.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || tip.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesDifficulty = selectedDifficulty === 'All' || tip.difficulty === selectedDifficulty;
+    return matchesSearch && matchesCategory && matchesDifficulty;
   });
+
+  // Sort tips by difficulty level if a specific difficulty is selected
+  const sortedTips = selectedDifficulty === 'All' 
+    ? filteredTips 
+    : [...filteredTips].sort((a, b) => {
+        if (a.difficulty === selectedDifficulty) return -1;
+        if (b.difficulty === selectedDifficulty) return 1;
+        return 0;
+      });
 
   if (loading) {
     return (
@@ -95,27 +113,44 @@ const BrowseTips = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center text-[#E6F2EF]">
-                <FaFilter className="mr-2 text-[#90CE48]" />
-                <span className="mr-2">Category:</span>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center text-[#E6F2EF]">
+                  <FaFilter className="mr-2 text-[#90CE48]" />
+                  <span className="mr-2">Category:</span>
+                </div>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="bg-[#082026] border border-[#1a3a42] rounded-lg py-3 px-4 text-[#F5F0E6] focus:outline-none focus:ring-2 focus:ring-[#90CE48]"
+                >
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
               </div>
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="bg-[#082026] border border-[#1a3a42] rounded-lg py-3 px-4 text-[#F5F0E6] focus:outline-none focus:ring-2 focus:ring-[#90CE48]"
-              >
-                {categories.map(category => (
-                  <option key={category} value={category}>{category}</option>
-                ))}
-              </select>
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center text-[#E6F2EF]">
+                  <FaFilter className="mr-2 text-[#90CE48]" />
+                  <span className="mr-2">Difficulty:</span>
+                </div>
+                <select
+                  value={selectedDifficulty}
+                  onChange={(e) => setSelectedDifficulty(e.target.value)}
+                  className="bg-[#082026] border border-[#1a3a42] rounded-lg py-3 px-4 text-[#F5F0E6] focus:outline-none focus:ring-2 focus:ring-[#90CE48]"
+                >
+                  {difficultyLevels.map(level => (
+                    <option key={level} value={level}>{level}</option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Tips Table */}
         <div className="bg-[#0a2a32] rounded-xl overflow-hidden border border-[#1a3a42] shadow-lg">
-          {filteredTips.length > 0 ? (
+          {sortedTips.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-[#1a3a42]">
                 <thead className="bg-[#082026]">
@@ -127,6 +162,9 @@ const BrowseTips = () => {
                       Category
                     </th>
                     <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
+                      Difficulty
+                    </th>
+                    <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
                       Preview
                     </th>
                     <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
@@ -135,7 +173,7 @@ const BrowseTips = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-[#0a2a32] divide-y divide-[#1a3a42]">
-                  {filteredTips.map((tip) => (
+                  {sortedTips.map((tip) => (
                     <tr key={tip._id} className="hover:bg-[#082026]/50 transition-colors duration-150">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
@@ -151,6 +189,15 @@ const BrowseTips = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="px-2 py-1 text-xs rounded-full font-medium bg-[#90CE48]/10 text-[#90CE48]">
                           {tip.category}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 py-1 text-xs rounded-full font-medium ${
+                          tip.difficulty === 'Easy' ? 'bg-green-500/10 text-green-500' :
+                          tip.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-500' :
+                          'bg-red-500/10 text-red-500'
+                        }`}>
+                          {tip.difficulty}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -191,7 +238,7 @@ const BrowseTips = () => {
 
         {/* Stats Footer */}
         <div className="mt-8 text-center text-[#E6F2EF] text-sm">
-          <p>Showing <span className="text-[#90CE48]">{filteredTips.length}</span> of <span className="text-[#90CE48]">{tips.length}</span> public gardening tips</p>
+          <p>Showing <span className="text-[#90CE48]">{sortedTips.length}</span> of <span className="text-[#90CE48]">{tips.length}</span> public gardening tips</p>
         </div>
       </div>
     </div>
