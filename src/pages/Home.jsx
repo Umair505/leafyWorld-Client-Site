@@ -7,7 +7,7 @@ import FeaturedTips from "../Components/FeaturedTips";
 
 const Home = () => {
   return (
-    <div className="bg-[#082026]">
+    <div className="bg-[rgb(8,32,38)]">
       <Hero></Hero>
       <FeaturedGardeners/>
       <Slider/>

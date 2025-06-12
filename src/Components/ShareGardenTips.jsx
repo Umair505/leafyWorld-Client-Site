@@ -14,6 +14,7 @@ const ShareGardenTips = () => {
     availability: 'Public',
     userEmail: user?.email || '',
     userName: user?.displayName || ''
+    
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
