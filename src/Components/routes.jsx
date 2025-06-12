@@ -10,6 +10,7 @@ import ShareGardenTips from "./ShareGardenTips";
 import BrowseTips from "../pages/BrowseTips";
 import TipDetails from "../pages/TipDetails";
 import MyTips from "../pages/MyTips";
+import PrivateRoutes from "../layouts/PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -35,11 +36,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/gardener',
-        element: <ExploreGardeners/>,
+        element:<PrivateRoutes> <ExploreGardeners/></PrivateRoutes>,
       },
       {
         path: '/garden-tips',
-        element: <ShareGardenTips/>,
+        element: <PrivateRoutes><ShareGardenTips/></PrivateRoutes>,
       },
       {
 
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
       {
 
         path: '/my-tips',
-        element: <MyTips/>,
+        element: <PrivateRoutes><MyTips/></PrivateRoutes>,
       },
       
     ],

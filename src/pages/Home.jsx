@@ -3,6 +3,7 @@ import Hero from "../Components/Hero";
 import Navbar from "../Components/Navbar";
 import Slider from "../Components/Slider";
 import FeaturedGardeners from "../Components/FeaturedGardeners";
+import FeaturedTips from "../Components/FeaturedTips";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Hero></Hero>
       <FeaturedGardeners/>
       <Slider/>
+      <FeaturedTips/>
     </div>
   );
 };

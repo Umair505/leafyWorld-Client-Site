@@ -149,92 +149,103 @@ const BrowseTips = () => {
         </div>
 
         {/* Tips Table */}
-        <div className="bg-[#0a2a32] rounded-xl overflow-hidden border border-[#1a3a42] shadow-lg">
-          {sortedTips.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-[#1a3a42]">
-                <thead className="bg-[#082026]">
-                  <tr>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
-                      Tip
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
-                      Category
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
-                      Difficulty
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
-                      Preview
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-[#0a2a32] divide-y divide-[#1a3a42]">
-                  {sortedTips.map((tip) => (
-                    <tr key={tip._id} className="hover:bg-[#082026]/50 transition-colors duration-150">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-[#90CE48]/10 rounded-lg text-[#90CE48]">
-                            <FaLeaf />
-                          </div>
-                          <div className="ml-4">
-                            <div className="text-sm font-medium text-[#F5F0E6]">{tip.title}</div>
-                            <div className="text-xs text-[#E6F2EF]/70">{tip.plantType}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="px-2 py-1 text-xs rounded-full font-medium bg-[#90CE48]/10 text-[#90CE48]">
-                          {tip.category}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`px-2 py-1 text-xs rounded-full font-medium ${
-                          tip.difficulty === 'Easy' ? 'bg-green-500/10 text-green-500' :
-                          tip.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-500' :
-                          'bg-red-500/10 text-red-500'
-                        }`}>
-                          {tip.difficulty}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-12 w-12 rounded-md overflow-hidden border border-[#1a3a42]">
-                          <img 
-                            src={tip.imageUrl} 
-                            alt={tip.title} 
-                            className="h-full w-full object-cover"
-                            onError={(e) => {
-                              e.target.src = 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80';
-                            }}
-                          />
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <button
-                          onClick={() => navigate(`/tips/${tip._id}`)}
-                          className="text-[#90CE48] hover:text-[#D4CF1D] flex items-center"
-                        >
-                          <FaEye className="mr-1" /> View
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <div className="mx-auto h-24 w-24 flex items-center justify-center bg-[#90CE48]/10 rounded-full text-[#90CE48] mb-4">
-                <FaSeedling className="text-3xl" />
-              </div>
-              <h3 className="text-lg font-medium text-[#F5F0E6]">No tips found</h3>
-              <p className="mt-2 text-[#E6F2EF]">Try adjusting your search or filter criteria</p>
-            </div>
-          )}
-        </div>
+<div className="bg-[#0a2a32] rounded-xl overflow-hidden border border-[#1a3a42] shadow-lg">
+  {sortedTips.length > 0 ? (
+    <div className="overflow-x-auto">
+      <table className="min-w-full divide-y divide-[#1a3a42]">
+        <thead className="bg-[#082026]">
+          <tr>
+            <th scope="col" className="px-3 py-3 sm:px-4 sm:py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
+              Tip
+            </th>
+            <th scope="col" className="px-2 py-3 sm:px-4 sm:py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider hidden sm:table-cell">
+              Category
+            </th>
+            <th scope="col" className="px-2 py-3 sm:px-4 sm:py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider hidden md:table-cell">
+              Difficulty
+            </th>
+            <th scope="col" className="px-2 py-3 sm:px-4 sm:py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider hidden lg:table-cell">
+              Preview
+            </th>
+            <th scope="col" className="px-2 py-3 sm:px-4 sm:py-4 text-left text-xs font-medium text-[#90CE48] uppercase tracking-wider">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-[#0a2a32] divide-y divide-[#1a3a42]">
+          {sortedTips.map((tip) => (
+            <tr key={tip._id} className="hover:bg-[#082026]/50 transition-colors duration-150">
+              {/* Tip Column */}
+              <td className="px-3 py-3 sm:px-4 sm:py-4 whitespace-nowrap">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center bg-[#90CE48]/10 rounded-lg text-[#90CE48]">
+                    <FaLeaf className="text-sm sm:text-base" />
+                  </div>
+                  <div className="ml-2 sm:ml-4">
+                    <div className="text-xs sm:text-sm font-medium text-[#F5F0E6] line-clamp-1">{tip.title}</div>
+                    <div className="text-[10px] sm:text-xs text-[#E6F2EF]/70">{tip.plantType}</div>
+                  </div>
+                </div>
+              </td>
+
+              {/* Category Column (hidden on mobile) */}
+              <td className="px-2 py-3 sm:px-4 sm:py-4 whitespace-nowrap hidden sm:table-cell">
+                <span className="px-2 py-1 text-xs rounded-full font-medium bg-[#90CE48]/10 text-[#90CE48]">
+                  {tip.category}
+                </span>
+              </td>
+
+              {/* Difficulty Column (hidden on mobile and tablet) */}
+              <td className="px-2 py-3 sm:px-4 sm:py-4 whitespace-nowrap hidden md:table-cell">
+                <span className={`px-2 py-1 text-xs rounded-full font-medium ${
+                  tip.difficulty === 'Easy' ? 'bg-green-500/10 text-green-500' :
+                  tip.difficulty === 'Medium' ? 'bg-yellow-500/10 text-yellow-500' :
+                  'bg-red-500/10 text-red-500'
+                }`}>
+                  {tip.difficulty}
+                </span>
+              </td>
+
+              {/* Preview Column (hidden on mobile, tablet, and small desktop) */}
+              <td className="px-2 py-3 sm:px-4 sm:py-4 whitespace-nowrap hidden lg:table-cell">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-md overflow-hidden border border-[#1a3a42]">
+                  <img 
+                    src={tip.imageUrl} 
+                    alt={tip.title} 
+                    className="h-full w-full object-cover"
+                    onError={(e) => {
+                      e.target.src = 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80';
+                    }}
+                  />
+                </div>
+              </td>
+
+              {/* Actions Column */}
+              <td className="px-2 py-3 sm:px-4 sm:py-4 whitespace-nowrap text-right text-xs sm:text-sm font-medium">
+                <button
+                  onClick={() => navigate(`/tips/${tip._id}`)}
+                  className="text-[#90CE48] hover:text-[#D4CF1D] flex items-center justify-end w-full"
+                  title="View Tip"
+                >
+                  <FaEye className="sm:mr-1" />
+                  <span className="hidden sm:inline">View</span>
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <div className="text-center py-10 sm:py-12 md:py-16">
+      <div className="mx-auto h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 flex items-center justify-center bg-[#90CE48]/10 rounded-full text-[#90CE48] mb-3 sm:mb-4">
+        <FaSeedling className="text-xl sm:text-2xl md:text-3xl" />
+      </div>
+      <h3 className="text-sm sm:text-base md:text-lg font-medium text-[#F5F0E6]">No tips found</h3>
+      <p className="mt-1 text-xs sm:text-sm md:text-base text-[#E6F2EF]">Try adjusting your search or filter criteria</p>
+    </div>
+  )}
+</div>
 
         {/* Stats Footer */}
         <div className="mt-8 text-center text-[#E6F2EF] text-sm">

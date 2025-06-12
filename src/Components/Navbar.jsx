@@ -66,11 +66,12 @@ const Navbar = () => {
             <NavLink to="/garden-tips" className={navLinkStyle}>
               Share a Garden Tip
             </NavLink>
-            <NavLink to="/my-tips" className={navLinkStyle}>
+            {user && (<NavLink to="/my-tips" className={navLinkStyle}>
               My Tips
-            </NavLink>
+            </NavLink>)}
+            
           </nav>
-
+              
           {/* Auth Buttons / Profile */}
           <div className="flex items-center gap-4">
             {user ? (
@@ -105,17 +106,7 @@ const Navbar = () => {
                     >
                       {user?.displayName}
                     </div>
-                    <NavLink
-                      to="/profile"
-                      className={({ isActive }) => 
-                        `block px-4 py-2 text-sm hover:bg-[#90CE48] hover:text-white ${
-                          isActive ? "bg-[#90CE48] text-white" : "text-gray-700"
-                        }`
-                      }
-                      onClick={() => setIsProfileOpen(false)}
-                    >
-                      My Profile
-                    </NavLink>
+                   
                     <NavLink
                       to="/my-tips"
                       className={({ isActive }) => 
@@ -248,19 +239,21 @@ const Navbar = () => {
               >
                 Share a Garden Tip
               </NavLink>
-              <NavLink
-                to="/my-tips"
-                className={({ isActive }) =>
-                  `block rounded-md px-3 py-2 text-base font-medium ${
-                    isActive 
-                      ? "text-[#90CE48] bg-[#082026]/70"
-                      : "text-[#F5F0E6] hover:bg-[#082026]/50"
-                  }`
-                }
-                onClick={() => setIsMenuOpen(false)}
-              >
-                My Tips
-              </NavLink>
+              { user && (
+                <NavLink
+                  to="/my-tips"
+                  className={({ isActive }) =>
+                    `block rounded-md px-3 py-2 text-base font-medium ${
+                      isActive 
+                        ? "text-[#90CE48] bg-[#082026]/70"
+                        : "text-[#F5F0E6] hover:bg-[#082026]/50"
+                    }`
+                  }
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Tips
+                </NavLink>
+              )}
             </div>
             {!user && (
               <div className="mt-4 space-y-2 px-2">
