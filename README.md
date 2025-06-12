@@ -9,7 +9,6 @@
 
 LeafyWorld is a vibrant online community for gardening enthusiasts to connect, share knowledge, and grow together. Our platform brings together plant lovers from beginners to experts, offering a space to exchange tips, discover local gardeners, and participate in gardening events.
 
-![LeafyWorld Screenshot](https://i.ibb.co/0jZ2L4P/leafyworld-screenshot.png)
 
 ## ✨ Key Features
 
@@ -52,8 +51,7 @@ LeafyWorld is a vibrant online community for gardening enthusiasts to connect, s
 
 ### Installation
 1. Clone the repository
-   ```sh
-   git clone https://github.com/yourusername/leafyworld-client.git
+
 Install dependencies
 
 sh
