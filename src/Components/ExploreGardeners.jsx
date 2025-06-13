@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { FaLeaf, FaSeedling, FaUser, FaMapMarkerAlt, FaFilter, FaSearch, FaStar } from 'react-icons/fa';
 
-
 const ExploreGardeners = () => {
   const [gardeners, setGardeners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
+  const [fetchAttempted, setFetchAttempted] = useState(false);
 
   useEffect(() => {
     const fetchGardeners = async () => {
+      setFetchAttempted(true);
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/gardeners`);
         if (!response.ok) {
@@ -18,6 +19,7 @@ const ExploreGardeners = () => {
         }
         const data = await response.json();
         setGardeners(data);
+        setError(null); 
       } catch (err) {
         setError(err.message);
       } finally {
@@ -25,19 +27,26 @@ const ExploreGardeners = () => {
       }
     };
 
-    fetchGardeners();
-  }, []);
+    // Only show loading state for the first fetch attempt
+    if (!fetchAttempted) {
+      const timer = setTimeout(() => {
+        fetchGardeners();
+      }, 300); // Small delay to prevent flash of loading state for quick fetches
 
-const filteredGardeners = gardeners.filter(gardener => {
-  const matchesSearch = gardener.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                       gardener.specialty.toLowerCase().includes(searchTerm.toLowerCase());
-  const matchesFilter = activeFilter === 'all' || 
-                       (activeFilter === 'active' && gardener.status.toLowerCase() === 'active') || 
-                       (activeFilter === 'inactive' && gardener.status.toLowerCase() === 'inactive');
-  return matchesSearch && matchesFilter;
-});
+      return () => clearTimeout(timer);
+    }
+  }, [fetchAttempted]);
 
-  if (loading) {
+  const filteredGardeners = gardeners.filter(gardener => {
+    const matchesSearch = gardener.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         gardener.specialty.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = activeFilter === 'all' || 
+                         (activeFilter === 'active' && gardener.status.toLowerCase() === 'active') || 
+                         (activeFilter === 'inactive' && gardener.status.toLowerCase() === 'inactive');
+    return matchesSearch && matchesFilter;
+  });
+
+  if (loading && !error) {
     return (
       <div className="flex justify-center items-center h-64 bg-[#082026]">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#90CE48]"></div>
@@ -49,6 +58,15 @@ const filteredGardeners = gardeners.filter(gardener => {
     return (
       <div className="text-center py-10 bg-[#082026]">
         <p className="text-red-400">Error: {error}</p>
+        <button 
+          onClick={() => {
+            setLoading(true);
+            setFetchAttempted(false);
+          }}
+          className="mt-4 px-4 py-2 bg-[#90CE48] text-[#082026] rounded-lg hover:bg-[#90CE48]/80 transition"
+        >
+          Retry
+        </button>
       </div>
     );
   }

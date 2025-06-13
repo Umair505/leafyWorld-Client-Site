@@ -6,6 +6,7 @@ const BrowseTips = () => {
   const [tips, setTips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [fetchAttempted, setFetchAttempted] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
@@ -32,6 +33,7 @@ const BrowseTips = () => {
 
   useEffect(() => {
     const fetchTips = async () => {
+      setFetchAttempted(true);
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/garden-tips?status=Public`);
         if (!response.ok) {
@@ -39,6 +41,7 @@ const BrowseTips = () => {
         }
         const data = await response.json();
         setTips(data);
+        setError(null);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -46,8 +49,39 @@ const BrowseTips = () => {
       }
     };
 
-    fetchTips();
-  }, []);
+    if (!fetchAttempted) {
+      const timer = setTimeout(() => {
+        fetchTips();
+      }, 300);
+
+      return () => clearTimeout(timer);
+    }
+  }, [fetchAttempted]);
+
+  if (loading && !error) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-[#082026]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#90CE48]"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-10 bg-[#082026]">
+        <p className="text-red-400">Error: {error}</p>
+        <button 
+          onClick={() => {
+            setLoading(true);
+            setFetchAttempted(false);
+          }}
+          className="mt-4 px-4 py-2 bg-[#90CE48] text-[#082026] rounded-lg hover:bg-[#90CE48]/80 transition"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   const filteredTips = tips.filter(tip => {
     const matchesSearch = tip.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -66,21 +100,6 @@ const BrowseTips = () => {
         return 0;
       });
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-[#082026]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#90CE48]"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-10 bg-[#082026]">
-        <p className="text-red-400">Error: {error}</p>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#082026] py-12 px-4 sm:px-6 lg:px-8">

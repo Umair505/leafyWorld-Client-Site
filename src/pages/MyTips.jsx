@@ -7,9 +7,10 @@ import { AuthContext } from '../provider/AuthProvider';
 import UpdateTipModal from '../Components/UpdateTipModal';
 
 const MyTips = () => {
-  const [tips, setTips] = useState([]);
+ const [tips, setTips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [fetchAttempted, setFetchAttempted] = useState(false);
   const [selectedTip, setSelectedTip] = useState(null);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const { user } = useContext(AuthContext);
@@ -17,18 +18,19 @@ const MyTips = () => {
 
   useEffect(() => {
     const fetchMyTips = async () => {
+      if (!user?.email) return;
+      setFetchAttempted(true);
+
       try {
-        if (!user?.email) return;
-        
-        setLoading(true);
         const response = await fetch(`${import.meta.env.VITE_API_URL}/my-tips/${user.email}`);
-        
+
         if (!response.ok) {
-          throw new Error('Failed to fetch tips');
+          throw new Error('Failed to fetch your gardening tips');
         }
-        
+
         const data = await response.json();
         setTips(data);
+        setError(null);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -36,8 +38,13 @@ const MyTips = () => {
       }
     };
 
-    fetchMyTips();
-  }, [user?.email]);
+    if (!fetchAttempted) {
+      const timer = setTimeout(() => {
+        fetchMyTips();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [user?.email, fetchAttempted]);
 
   const handleDelete = async (tipId) => {
     const result = await Swal.fire({
@@ -61,17 +68,9 @@ const MyTips = () => {
         }
 
         setTips(tips.filter(tip => tip._id !== tipId));
-        Swal.fire(
-          'Deleted!',
-          'Your tip has been deleted.',
-          'success'
-        );
+        Swal.fire('Deleted!', 'Your tip has been deleted.', 'success');
       } catch (err) {
-        Swal.fire(
-          'Error!',
-          err.message,
-          'error'
-        );
+        Swal.fire('Error!', err.message, 'error');
       }
     }
   };
@@ -84,14 +83,10 @@ const MyTips = () => {
   const handleUpdateSuccess = (updatedTip) => {
     setTips(tips.map(tip => tip._id === updatedTip._id ? { ...tip, ...updatedTip } : tip));
     setShowUpdateModal(false);
-    Swal.fire(
-      'Success!',
-      'Your tip has been updated.',
-      'success'
-    );
+    Swal.fire('Success!', 'Your tip has been updated.', 'success');
   };
 
-  if (loading) {
+  if (loading && !error) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#082026] to-[#0a2a32] p-4">
         <FaSpinner className="animate-spin text-4xl text-[#90CE48] mb-4" />
@@ -106,7 +101,10 @@ const MyTips = () => {
         <FaExclamationTriangle className="text-4xl text-red-500 mb-4" />
         <p className="text-[#F5F0E6] text-lg mb-4">Error: {error}</p>
         <button 
-          onClick={() => window.location.reload()}
+          onClick={() => {
+            setLoading(true);
+            setFetchAttempted(false);
+          }}
           className="bg-[#90CE48] hover:bg-[#7CB53B] text-[#082026] font-medium py-2 px-4 rounded-lg transition duration-200"
         >
           Try Again
