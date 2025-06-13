@@ -2,14 +2,13 @@
 
 ![LeafyWorld Banner](https://i.ibb.co/bMzjR6m9/Screenshot-2.png)
 
-**Live Demo:** [leafyworld-b841c.web.app](https://leafyworld-b841c.web.app)  
+**Live Demo:** [leafyworld-b841c.web.app](https://leafyworld-umair.netlify.app/)  
 **API Server:** [leafy-world-server.vercel.app](https://leafy-world-server-4z0irk0in-umair505s-projects.vercel.app/)
 
 ## 🌱 About The Project
 
 LeafyWorld is a vibrant online community for gardening enthusiasts to connect, share knowledge, and grow together. Our platform brings together plant lovers from beginners to experts, offering a space to exchange tips, discover local gardeners, and participate in gardening events.
 
-![LeafyWorld Screenshot](https://i.ibb.co/0jZ2L4P/leafyworld-screenshot.png)
 
 ## ✨ Key Features
 
@@ -36,10 +35,10 @@ LeafyWorld is a vibrant online community for gardening enthusiasts to connect, s
 - Express.js
 - MongoDB
 - Vercel Hosting
-- JWT Authentication
+- Firebase Authentication
 
 ### Hosting
-- Firebase Hosting (Client)
+- Netlify Hosting (Client)
 - Vercel (Server)
 
 ## 🚀 Getting Started
@@ -52,8 +51,7 @@ LeafyWorld is a vibrant online community for gardening enthusiasts to connect, s
 
 ### Installation
 1. Clone the repository
-   ```sh
-   git clone https://github.com/yourusername/leafyworld-client.git
+
 Install dependencies
 
 sh
