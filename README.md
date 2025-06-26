@@ -3,7 +3,7 @@
 ![LeafyWorld Banner](https://i.ibb.co/bMzjR6m9/Screenshot-2.png)
 
 **Live Demo:** [leafyworld-b841c.web.app](https://leafyworld-umair.netlify.app/)  
-**API Server:** [leafy-world-server.vercel.app](https://leafy-world-server-4z0irk0in-umair505s-projects.vercel.app/)
+**API Server:** [leafyworld-server-site.onrender.com](https://leafyworld-server-site.onrender.com/)
 
 ## 🌱 About The Project
 
@@ -39,7 +39,7 @@ LeafyWorld is a vibrant online community for gardening enthusiasts to connect, s
 
 ### Hosting
 - Netlify Hosting (Client)
-- Vercel (Server)
+- Onrender (Server)
 
 ## 🚀 Getting Started
 
