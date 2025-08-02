@@ -1,6 +1,6 @@
 # 🌿 LeafyWorld - Gardening Community Platform
 
-![LeafyWorld Banner](https://i.ibb.co/bMzjR6m9/Screenshot-2.png)
+![LeafyWorld Banner](https://i.postimg.cc/MpY5ZH3Q/leafy.png)
 
 **Live Demo:** [leafyworld-b841c.web.app](https://leafyworld-umair.netlify.app/)  
 **API Server:** [leafy-world-server.vercel.app](https://leafy-world-server-4z0irk0in-umair505s-projects.vercel.app/)
